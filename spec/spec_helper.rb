@@ -17,15 +17,21 @@ end
 
 host = ENV['TARGET_HOST']
 
-`vagrant up #{host}`
+if ENV['CIRCLECI']
+  options = Net::SSH::Config.for(host, ["~/.ssh/config"])
+  options[:user] = "root"
+else
+  `vagrant up #{host}`
 
-config = Tempfile.new('', Dir.tmpdir)
-config.write(`vagrant ssh-config #{host}`)
-config.close
+  config = Tempfile.new('', Dir.tmpdir)
+  config.write(`vagrant ssh-config #{host}`)
+  config.close
 
-options = Net::SSH::Config.for(host, [config.path])
+  options = Net::SSH::Config.for(host, [config.path])
 
-options[:user] ||= Etc.getlogin
+  options[:user] ||= Etc.getlogin
+end
+
 
 set :host,        options[:host_name] || host
 set :ssh_options, options
@@ -35,7 +41,7 @@ set :ssh_options, options
 
 
 # Set environment variables
-# set :env, :LANG => 'C', :LC_MESSAGES => 'C' 
+# set :env, :LANG => 'C', :LC_MESSAGES => 'C'
 
 # Set PATH
 # set :path, '/sbin:/usr/local/sbin:$PATH'
