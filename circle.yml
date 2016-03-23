@@ -24,11 +24,12 @@ test:
     - cp /etc/hosts .
     - sudo bash -c "cat hosts /tmp/hosts.txt | tee /etc/hosts"
   override:
-    - ssh root@webapp ls
-    - ssh -i /home/ubuntu/.ssh/id_webapp root@webapp ls
     - cat ~/.ssh/id_webapp
     - cat /etc/hosts
     - cat ~/.ssh/config
+    - ls -la ~/.ssh
+    - ssh root@webapp ls
+    - ssh -i /home/ubuntu/.ssh/id_webapp root@webapp ls
     - bundle exec knife solo prepare root@webapp
     - bundle exec knife solo cook root@webapp
     - bundle exec rake spec
