@@ -4,3 +4,4 @@ vagrant_ssh_config
 .rspec
 .ssh
 terraform.*
+vendor
