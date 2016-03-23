@@ -37,4 +37,4 @@ test:
     - bundle exec rake spec
   post:
     - terraform plan -destroy
-#    - terraform destroy -force
+    - terraform destroy -force
