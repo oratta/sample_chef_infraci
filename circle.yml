@@ -24,6 +24,7 @@ test:
     - cp /etc/hosts .
     - sudo bash -c "cat hosts /tmp/hosts.txt | tee /etc/hosts"
   override:
+    - terraform show
     - cat ~/.ssh/id_webapp
     - cat /etc/hosts
     - cat ~/.ssh/config
