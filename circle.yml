@@ -26,8 +26,9 @@ test:
   override:
     - ssh root@webapp ls
     - ssh -i /home/ubuntu/.ssh/id_webapp root@webapp ls
-    - sudo cat /etc/hosts
-    - sudo cat ~/.ssh/config
+    - cat ~/.ssh/id_webapp
+    - cat /etc/hosts
+    - cat ~/.ssh/config
     - bundle exec knife solo prepare root@webapp
     - bundle exec knife solo cook root@webapp
     - bundle exec rake spec
